@@ -1,0 +1,28 @@
+name: scanner_plus_android
+description: Android implementation of the scanner_plus plugin.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  scanner_plus_platform_interface:
+    path: ../scanner_plus_platform_interface
+  scanner_plus_rust_core:
+    path: ../scanner_plus_rust_core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.scanner_plus.scanner_plus_android
+        pluginClass: ScannerPlusAndroidPlugin

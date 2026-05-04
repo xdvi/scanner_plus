@@ -1,0 +1,26 @@
+name: scanner_plus
+repository: https://github.com/your-username/scanner_plus
+
+packages:
+  - packages/*
+  - examples/*
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+  version:
+    workspaceFallbackVersion: 0.1.0
+
+scripts:
+  analyze:
+    run: |
+      melos exec -c 1 -- \
+        dart analyze .
+    description: Run dart analyze for all packages.
+
+  format:
+    run: |
+      melos exec -c 1 -- \
+        dart format .
+    description: Format dart code for all packages.

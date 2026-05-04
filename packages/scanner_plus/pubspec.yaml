@@ -1,0 +1,49 @@
+name: scanner_plus
+description: "A federated Flutter plugin for barcode and QR code scanning with Rust and Native support."
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  scanner_plus_platform_interface:
+    path: ../scanner_plus_platform_interface
+  scanner_plus_rust_core:
+    path: ../scanner_plus_rust_core
+  scanner_plus_linux:
+    path: ../scanner_plus_linux
+  scanner_plus_windows:
+    path: ../scanner_plus_windows
+  scanner_plus_macos:
+    path: ../scanner_plus_macos
+  scanner_plus_android:
+    path: ../scanner_plus_android
+  scanner_plus_ios:
+    path: ../scanner_plus_ios
+  scanner_plus_web:
+    path: ../scanner_plus_web
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  plugin:
+    platforms:
+      linux:
+        default_package: scanner_plus_linux
+      windows:
+        default_package: scanner_plus_windows
+      macos:
+        default_package: scanner_plus_macos
+      android:
+        default_package: scanner_plus_android
+      ios:
+        default_package: scanner_plus_ios
+      web:
+        default_package: scanner_plus_web
