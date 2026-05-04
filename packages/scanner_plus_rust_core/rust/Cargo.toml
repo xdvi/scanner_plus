@@ -9,8 +9,12 @@ crate-type = ["cdylib", "staticlib"]
 [dependencies]
 flutter_rust_bridge = "=2.12.0"
 image = "0.25.10"
-nokhwa = { version = "0.10.10", features = ["input-v4l", "input-msmf", "input-avfoundation", "usb_enumeration", "output-threaded"] }
-zxing-cpp = "0.5.1"
+zxing-cpp = { version = "0.5.1", features = ["bundled"] }
+
+# Nokhwa is only needed on desktop. On mobile, we use native camera APIs.
+# We remove usb_enumeration as it's broken on Android and not needed for basic usage.
+[target.'cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))'.dependencies]
+nokhwa = { version = "0.10.10", features = ["input-v4l", "input-msmf", "input-avfoundation", "output-threaded"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
