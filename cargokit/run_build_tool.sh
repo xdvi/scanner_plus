@@ -4,6 +4,10 @@ set -e
 
 BASEDIR=$(cd "$(dirname "$0")" && pwd)
 
+if [[ -z $CARGOKIT_TOOL_TEMP_DIR ]]; then
+  CARGOKIT_TOOL_TEMP_DIR=$(mktemp -d)
+fi
+
 mkdir -p "$CARGOKIT_TOOL_TEMP_DIR"
 
 cd "$CARGOKIT_TOOL_TEMP_DIR"
@@ -13,6 +17,10 @@ cd "$CARGOKIT_TOOL_TEMP_DIR"
 # with .dart_tool contents.
 
 BUILD_TOOL_PKG_DIR="$BASEDIR/build_tool"
+
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+  BUILD_TOOL_PKG_DIR=$(cygpath -m "$BUILD_TOOL_PKG_DIR")
+fi
 
 if [[ -z $FLUTTER_ROOT ]]; then # not defined
   DART=dart

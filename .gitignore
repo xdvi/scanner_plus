@@ -1,0 +1,33 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+*.lock
+
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cargokit
+cargokit/build_tool/.dart_tool/
+cargokit/build_tool/.packages
+cargokit/build_tool/pubspec.lock
+
+# Prebuilt binaries
+publish/
+downloaded-artifacts/
+prebuilt/
