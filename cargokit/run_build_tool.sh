@@ -4,6 +4,10 @@ set -e
 
 BASEDIR=$(cd "$(dirname "$0")" && pwd)
 
+if [[ -z $CARGOKIT_TOOL_TEMP_DIR ]]; then
+  CARGOKIT_TOOL_TEMP_DIR=$(mktemp -d)
+fi
+
 mkdir -p "$CARGOKIT_TOOL_TEMP_DIR"
 
 cd "$CARGOKIT_TOOL_TEMP_DIR"

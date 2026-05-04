@@ -1,6 +1,9 @@
 use zxingcpp::{read, BarcodeFormat, ImageView, ImageFormat};
+#[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 use nokhwa::utils::{CameraIndex, ApiBackend, RequestedFormat, RequestedFormatType};
+#[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 use nokhwa::query;
+#[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 use nokhwa::Camera;
 use crate::frb_generated::StreamSink;
 
@@ -35,6 +38,7 @@ pub struct CameraInfo {
     pub name: String,
 }
 
+#[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 #[flutter_rust_bridge::frb(sync)]
 pub fn available_cameras() -> Result<Vec<CameraInfo>, String> {
     let devices = query(ApiBackend::Auto).map_err(|e| e.to_string())?;
@@ -50,6 +54,13 @@ pub fn available_cameras() -> Result<Vec<CameraInfo>, String> {
         .collect())
 }
 
+#[cfg(not(any(target_os = "windows", target_os = "linux", target_os = "macos")))]
+#[flutter_rust_bridge::frb(sync)]
+pub fn available_cameras() -> Result<Vec<CameraInfo>, String> {
+    Ok(vec![])
+}
+
+#[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 #[flutter_rust_bridge::frb(sync)]
 pub fn start_scan(
     result_sink: StreamSink<Vec<BarcodeResult>>,
@@ -100,6 +111,16 @@ pub fn start_scan(
     std::mem::forget(threaded_camera);
 
     Ok(())
+}
+
+#[cfg(not(any(target_os = "windows", target_os = "linux", target_os = "macos")))]
+#[flutter_rust_bridge::frb(sync)]
+pub fn start_scan(
+    _result_sink: StreamSink<Vec<BarcodeResult>>,
+    _frame_sink: StreamSink<Frame>,
+    _index: u32,
+) -> Result<(), String> {
+    Err("Camera scanning via Rust is not supported on this platform. Use native APIs.".to_string())
 }
 
 #[flutter_rust_bridge::frb(sync)]
